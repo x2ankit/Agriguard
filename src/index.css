@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Drone System Design System - All colors, gradients, fonts, animations defined here */
+
+
+@layer base {
+  :root {
+    /* Drone System Color Palette */
+    --background: 210 8% 11%;
+    --foreground: 210 7% 97%;
+    
+    --card: 210 7% 97%;
+    --card-foreground: 210 8% 11%;
+    
+    --popover: 210 7% 97%;
+    --popover-foreground: 210 8% 11%;
+    
+    /* Health Status Colors */
+    --healthy: 145 63% 42%;        /* #27AE60 */
+    --healthy-foreground: 0 0% 100%;
+    --mild-infection: 45 87% 61%;   /* #F2C94C */
+    --mild-infection-foreground: 210 8% 11%;
+    --severe-infection: 4 69% 63%;  /* #EB5757 */
+    --severe-infection-foreground: 0 0% 100%;
+    
+    /* System Colors */
+    --drone-info: 204 80% 52%;     /* #2D9CDB Sky Blue */
+    --drone-info-foreground: 0 0% 100%;
+    
+    --primary: 145 63% 42%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 210 7% 97%;
+    --secondary-foreground: 210 8% 11%;
+    
+    --muted: 210 11% 15%;
+    --muted-foreground: 210 7% 60%;
+    
+    --accent: 204 80% 52%;
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 4 69% 63%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 210 11% 20%;
+    --input: 210 11% 15%;
+    --ring: 145 63% 42%;
+    
+    /* Gradients */
+    --gradient-drone: linear-gradient(135deg, hsl(var(--drone-info)), hsl(var(--drone-info) / 0.8));
+    --gradient-healthy: linear-gradient(135deg, hsl(var(--healthy)), hsl(var(--healthy) / 0.8));
+    --gradient-warning: linear-gradient(135deg, hsl(var(--mild-infection)), hsl(var(--mild-infection) / 0.8));
+    --gradient-danger: linear-gradient(135deg, hsl(var(--severe-infection)), hsl(var(--severe-infection) / 0.8));
+    --gradient-glass: linear-gradient(135deg, hsl(var(--card) / 0.1), hsl(var(--card) / 0.05));
+    
+    /* Shadows */
+    --shadow-drone: 0 10px 30px -10px hsl(var(--drone-info) / 0.3);
+    --shadow-healthy: 0 10px 30px -10px hsl(var(--healthy) / 0.3);
+    --shadow-warning: 0 10px 30px -10px hsl(var(--mild-infection) / 0.3);
+    --shadow-danger: 0 10px 30px -10px hsl(var(--severe-infection) / 0.3);
+    --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    
+    /* Animation Variables */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+/* Custom Component Styles */
+@layer components {
+  /* Drone Animation */
+  .drone-propeller {
+    animation: spin 0.5s linear infinite;
+  }
+  
+  .drone-hover {
+    animation: drone-float 3s ease-in-out infinite;
+  }
+  
+  /* Glass morphism effects */
+  .glass-card {
+    background: var(--gradient-glass);
+    backdrop-filter: blur(10px);
+    border: 1px solid hsl(var(--border) / 0.2);
+  }
+  
+  /* Status indicator animations */
+  .status-pulse {
+    animation: status-pulse 2s ease-in-out infinite;
+  }
+  
+  /* Hover effects */
+  .hover-lift {
+    transition: var(--transition-smooth);
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-glass);
+  }
+  
+  /* Gradient text */
+  .gradient-text-healthy {
+    background: var(--gradient-healthy);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .gradient-text-drone {
+    background: var(--gradient-drone);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+/* Keyframe Animations */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes drone-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes status-pulse {
+  0%, 100% { 
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
