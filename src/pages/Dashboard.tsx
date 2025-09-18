@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import WeatherCard from "@/components/WeatherCard";
 import DroneStatusCard from "@/components/DroneStatusCard";
 import CropHealthChart from "@/components/CropHealthChart";
+import CropTypeCard from "@/components/CropTypeCard";
 import QuickActions from "@/components/QuickActions";
 import DroneAnimation from "@/components/DroneAnimation";
 import logo from "../../favicon/apple-touch-icon.png";
@@ -101,8 +102,9 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="lg:col-span-2">
-            <div className="animate-slide-in-right" style={{ animationDelay: '0.3s' }}>
+            <div className="animate-slide-in-right space-y-6" style={{ animationDelay: '0.3s' }}>
               <CropHealthChart />
+              <CropTypeCard />
             </div>
           </div>
         </div>
