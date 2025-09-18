@@ -102,8 +102,9 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="lg:col-span-2">
-            <div className="animate-slide-in-right" style={{ animationDelay: '0.3s' }}>
+            <div className="animate-slide-in-right space-y-6" style={{ animationDelay: '0.3s' }}>
               <CropHealthChart />
+              <CropTypeCard />
             </div>
           </div>
         </div>
