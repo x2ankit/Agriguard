@@ -41,7 +41,7 @@ const Login = () => {
   title: "Welcome to Agriguard! 🚁",
       description: "Login successful. Redirecting to dashboard...",
     });
-    setTimeout(() => navigate("/dashboard"), 1000);
+    setTimeout(() => navigate("/dashboard"), 100);
   };
 
   const handleGoogleAuth = async () => {

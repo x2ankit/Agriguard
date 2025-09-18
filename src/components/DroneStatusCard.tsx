@@ -25,13 +25,35 @@ const DroneStatusCard = () => {
     return "text-severe-infection";
   };
 
+  const getStatusStyle = (status: string) => {
+    return status === "Active"
+      ? "bg-green-100 text-green-800"
+      : "bg-red-100 text-red-800";
+  };
+
+  const getModeStyle = (mode: string) => {
+    switch (mode) {
+      case "Auto":
+        return "bg-blue-100 text-blue-800";
+      case "Manual":
+        return "bg-yellow-100 text-yellow-800";
+      default:
+        return "bg-gray-100 text-gray-800";
+    }
+  };
+
   return (
     <Card className="glass-card hover-lift p-6">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-poppins font-semibold">Drone Status</h3>
         <div className="flex items-center space-x-2">
-          <Wifi className={`w-4 h-4 ${drone.connected ? 'text-healthy' : 'text-severe-infection'}`} />
-          <Badge variant={drone.status === "Active" ? "default" : "secondary"} className="status-pulse">
+          <Wifi
+            className={`w-4 h-4 ${
+              drone.connected ? "text-healthy" : "text-severe-infection"
+            }`}
+          />
+          {/* Status Badge */}
+          <Badge className={`status-pulse ${getStatusStyle(drone.status)}`}>
             {drone.status}
           </Badge>
         </div>
@@ -45,14 +67,15 @@ const DroneStatusCard = () => {
               <Battery className={`w-4 h-4 ${getBatteryColor(drone.battery)}`} />
               <span className="text-sm font-medium">Battery</span>
             </div>
-            <span className={`text-sm font-mono font-semibold ${getBatteryColor(drone.battery)}`}>
+            <span
+              className={`text-sm font-mono font-semibold ${getBatteryColor(
+                drone.battery
+              )}`}
+            >
               {drone.battery}%
             </span>
           </div>
-          <Progress 
-            value={drone.battery} 
-            className="h-2"
-          />
+          <Progress value={drone.battery} className="h-2" />
         </div>
 
         {/* Tank Level */}
@@ -62,14 +85,15 @@ const DroneStatusCard = () => {
               <Fuel className={`w-4 h-4 ${getTankColor(drone.tank)}`} />
               <span className="text-sm font-medium">Pesticide Tank</span>
             </div>
-            <span className={`text-sm font-mono font-semibold ${getTankColor(drone.tank)}`}>
+            <span
+              className={`text-sm font-mono font-semibold ${getTankColor(
+                drone.tank
+              )}`}
+            >
               {drone.tank}%
             </span>
           </div>
-          <Progress 
-            value={drone.tank} 
-            className="h-2"
-          />
+          <Progress value={drone.tank} className="h-2" />
         </div>
 
         {/* Mode */}
@@ -78,7 +102,8 @@ const DroneStatusCard = () => {
             <Settings className="w-4 h-4 text-drone-info" />
             <span className="text-sm font-medium">Mode</span>
           </div>
-          <Badge variant="outline" className="font-mono">
+          {/* Mode Badge */}
+          <Badge className={`font-mono ${getModeStyle(drone.mode)}`}>
             {drone.mode}
           </Badge>
         </div>
