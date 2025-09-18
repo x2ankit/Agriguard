@@ -90,7 +90,7 @@ const Login = () => {
             Agriguard
           </h1>
           <p className="text-white/90 drop-shadow">
-            Smart farming with AI-powered precision
+            Smart farming with AI-powered Drones
           </p>
         </div>
 
@@ -103,7 +103,7 @@ const Login = () => {
             className="hover-lift text-white hover:bg-white/10"
           >
             <Globe className="w-4 h-4 mr-2" />
-            {language === "en" ? "हिन्दी" : "English"}
+            {language === "en" ? "English" : "हिन्दी" }
           </Button>
         </div>
 

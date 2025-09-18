@@ -259,11 +259,11 @@ const LivePreview = () => {
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-sm">Area Covered</span>
-                  <span className="font-mono font-semibold text-healthy">3.2 ha</span>
+                  <span className="font-mono font-semibold text-healthy">0.2 ha</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm">Pesticide Used</span>
-                  <span className="font-mono font-semibold text-drone-info">2.8L</span>
+                  <span className="font-mono font-semibold text-drone-info">0.4L</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm">Flight Time</span>

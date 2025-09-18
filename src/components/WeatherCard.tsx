@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 const WeatherCard = () => {
   // Mock weather data
   const weather = {
-    temperature: 28,
+    temperature: 32,
     humidity: 65,
     condition: "sunny",
     rainAlert: false

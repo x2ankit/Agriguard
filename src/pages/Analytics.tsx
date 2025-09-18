@@ -22,10 +22,10 @@ const Analytics = () => {
   ];
 
   const sprayHistory = [
-    { date: "2024-01-15", area: 12.5, pesticide: 8.5, savings: 35 },
-    { date: "2024-01-14", area: 8.2, pesticide: 5.8, savings: 42 },
-    { date: "2024-01-13", area: 15.3, pesticide: 11.2, savings: 28 },
-    { date: "2024-01-12", area: 6.8, pesticide: 4.1, savings: 48 },
+    { date: "2024-01-15", area: 0.15, pesticide: 8.5, savings: 35 },
+    { date: "2024-01-14", area: 0.23, pesticide: 5.8, savings: 42 },
+    { date: "2024-01-13", area: 0.19, pesticide: 11.2, savings: 28 },
+    { date: "2024-01-12", area: 0.84, pesticide: 4.1, savings: 48 },
   ];
 
   return (
@@ -67,7 +67,7 @@ const Analytics = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Total Area Treated</p>
-                <p className="text-2xl font-poppins font-bold text-healthy">156.8 ha</p>
+                <p className="text-2xl font-poppins font-bold text-healthy">0.3 ha</p>
                 <div className="flex items-center mt-1">
                   <TrendingUp className="w-3 h-3 text-healthy mr-1" />
                   <span className="text-xs text-healthy">+12% vs last month</span>
@@ -99,7 +99,7 @@ const Analytics = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Flight Hours</p>
-                <p className="text-2xl font-poppins font-bold text-mild-infection">284.2 hrs</p>
+                <p className="text-2xl font-poppins font-bold text-mild-infection">0.32 hrs</p>
                 <div className="flex items-center mt-1">
                   <TrendingDown className="w-3 h-3 text-severe-infection mr-1" />
                   <span className="text-xs text-severe-infection">-3% downtime</span>
@@ -204,7 +204,7 @@ const Analytics = () => {
                   <div className="text-xs text-muted-foreground">Money Saved</div>
                 </div>
                 <div className="text-center p-3 rounded-lg bg-drone-info/10">
-                  <div className="text-lg font-bold text-drone-info">186L</div>
+                  <div className="text-lg font-bold text-drone-info">5.6L</div>
                   <div className="text-xs text-muted-foreground">Pesticide Saved</div>
                 </div>
               </div>

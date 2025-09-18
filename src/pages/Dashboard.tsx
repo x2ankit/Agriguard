@@ -113,7 +113,7 @@ const Dashboard = () => {
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-sm font-medium text-muted-foreground">Areas Treated Today</h3>
-                <p className="text-2xl font-poppins font-bold text-healthy">12.5 ha</p>
+                <p className="text-2xl font-poppins font-bold text-healthy">0.21 ha</p>
               </div>
               <div className="w-12 h-12 rounded-full bg-healthy/20 flex items-center justify-center">
                 <span className="text-2xl">🌱</span>
@@ -137,7 +137,7 @@ const Dashboard = () => {
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-sm font-medium text-muted-foreground">Flight Hours</h3>
-                <p className="text-2xl font-poppins font-bold text-mild-infection">8.2 hrs</p>
+                <p className="text-2xl font-poppins font-bold text-mild-infection">2.4 hrs</p>
               </div>
               <div className="w-12 h-12 rounded-full bg-mild-infection/20 flex items-center justify-center">
                 <span className="text-2xl">⏱️</span>
