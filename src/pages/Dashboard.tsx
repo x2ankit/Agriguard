@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import WeatherCard from "@/components/WeatherCard";
 import DroneStatusCard from "@/components/DroneStatusCard";
 import CropHealthChart from "@/components/CropHealthChart";
+import CropTypeCard from "@/components/CropTypeCard";
 import QuickActions from "@/components/QuickActions";
 import DroneAnimation from "@/components/DroneAnimation";
 import logo from "../../favicon/apple-touch-icon.png";
