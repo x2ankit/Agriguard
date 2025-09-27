@@ -6,6 +6,7 @@
 
 An AI-powered drone system for precision agriculture, designed to reduce pesticide usage, improve crop health, and boost profitability for Indian farmers.
 
+Live at - [Agriguard](https://agriguard-green.vercel.app/)
 ---
 
 ## Table of Contents
@@ -18,7 +19,7 @@ An AI-powered drone system for precision agriculture, designed to reduce pestici
 6.  [Roadmap](#roadmap)
 7.  [Contributing](#contributing)
 8.  [License](#license)
-9.  [Contact](#contact)
+9.  [Deployment](#deployment)
 
 ---
 
@@ -152,4 +153,4 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Deployment
 
-Website Link: [Click to View]([https://github.com/x2ankit/Agriguard](https://agriguard-green.vercel.app/))
+Website Link: [Click to View](https://agriguard-green.vercel.app/)
