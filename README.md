@@ -84,36 +84,61 @@ To get a local copy up and running, follow these simple steps.
 
 ### Prerequisites
 
-* Node.js and npm
+You must have **Git LFS** installed to handle the large machine learning model file.
+* [Download and install Git LFS](https://git-lfs.github.com/).
+* After installing, set it up by running this command once:
     ```sh
-    npm install npm@latest -g
+    git lfs install
     ```
-* Python & pip
-    ```sh
-    # Ensure Python 3.8+ is installed
-    ```
+You will also need:
+* Node.js and npm (`npm install npm@latest -g`)
+* Python 3.8+ and pip
 
 ### Installation
 
 1.  **Clone the repo**
     ```sh
-    git clone [https://github.com/x2ankit/Agriguard.git)
+    git clone [https://github.com/x2ankit/Agriguard.git](https://github.com/x2ankit/Agriguard.git)
+    cd Agriguard
     ```
-2.  **Install Frontend Dependencies**
+
+2.  **Download the ML Model**
+    The model file is tracked using Git LFS. Run the following command to download the model file.
     ```sh
-    cd agriguard/frontend
-    npm install
+    git lfs pull
     ```
-3.  **Install Backend Dependencies**
-    ```sh
-    cd ../backend
-    npm install
-    ```
-4.  **Install Python Dependencies for ML scripts**
-    ```sh
-    cd ../ml
-    pip install -r requirements.txt
-    ```
+
+3.  **Install Dependencies**
+    * **Frontend:**
+        ```sh
+        cd frontend
+        npm install
+        ```
+    * **Backend:**
+        ```sh
+        cd ../backend
+        npm install
+        ```
+    * **ML Scripts:**
+        ```sh
+        cd ../ml
+        pip install -r requirements.txt
+        ```
+
+> **Note for Project Owner (How to add/update the model later):**
+> To add or change the model file, place the new `.h5` file in the correct directory and run these commands:
+> ```sh
+> # Tell LFS to track this specific file type (only needs to be done once)
+> git lfs track "*.h5"
+> 
+> # Make sure the .gitattributes file is tracked
+> git add .gitattributes
+> 
+> # Add your model file
+> git add path/to/your/model.h5
+> git commit -m "feat: Update ML model"
+> git push
+> ```
 
 ---
 
@@ -126,7 +151,7 @@ We have a clear vision for the future of Agriguard. Our next steps include:
 -   [ ] **Predictive Analytics**: Build a cloud platform that uses aggregated data to predict pest outbreaks before they happen.
 -   [ ] **Automated Retraining**: Create a CI/CD pipeline for the ML model to automatically retrain and improve itself with new data from the field.
 
-See the [open issues](https://github.com/your_username/agriguard/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/x2ankit/Agriguard/issues) for a full list of proposed features (and known issues).
 
 ---
 
