@@ -1,19 +1,15 @@
-import { useState } from "react"; // useEffect is no longer needed
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { MessageCircle, Send, Book, Video, Phone, Globe, Battery, Fuel, Settings, AlertTriangle } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import Navigation from "@/components/Navigation";
 
 const Help = () => {
-  // The old state and functions for the fake chat are no longer needed.
-  const [language, setLanguage] = useState("en");
-  const { toast } = useToast();
+  const [language, setLanguage] = useState("en"); // default English
 
   const faqs = [
-    // ... your faqs array remains unchanged
     {
       question: "How do I refill the pesticide tank?",
       answer: "1. Land the drone safely on level ground\n2. Turn off the drone completely\n3. Open the tank compartment using the release lever\n4. Use the provided funnel to add pesticide\n5. Close and secure the compartment\n6. Run a system check before next flight",
@@ -42,7 +38,6 @@ const Help = () => {
   ];
 
   const troubleshootingSteps = [
-    // ... your troubleshootingSteps array remains unchanged
     {
       issue: "Drone won't start",
       icon: <Settings className="w-5 h-5 text-severe-infection" />,
@@ -94,18 +89,132 @@ const Help = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
           {/* Left Column */}
           <div className="lg:col-span-2 space-y-6">
-            {/* ... Your "Getting Started", "Troubleshooting", and "FAQ" cards ... */}
-            <Card className="glass-card p-6">{/* Getting Started... */}</Card>
-            <Card className="glass-card p-6">{/* Troubleshooting... */}</Card>
-            <Card className="glass-card p-6">{/* FAQ... */}</Card>
+            {/* Getting Started */}
+            <Card className="glass-card p-6">
+              <h2 className="text-xl font-poppins font-extrabold mb-4 flex items-center text-green-700 drop-shadow">
+                <Book className="w-5 h-5 mr-2 text-drone-info" />
+                Getting Started Guide
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="p-4 rounded-lg bg-healthy/10 border border-healthy/20">
+                  <div className="flex items-center mb-2">
+                    <Battery className="w-4 h-4 text-healthy mr-2" />
+                    <h3 className="font-semibold text-sm">1. Setup & Charging</h3>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Charge battery, fill tank, perform pre-flight checks
+                  </p>
+                </div>
+                <div className="p-4 rounded-lg bg-drone-info/10 border border-drone-info/20">
+                  <div className="flex items-center mb-2">
+                    <Settings className="w-4 h-4 text-drone-info mr-2" />
+                    <h3 className="font-semibold text-sm">2. Configuration</h3>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Set spray patterns, calibrate sensors, connect GPS
+                  </p>
+                </div>
+                <div className="p-4 rounded-lg bg-mild-infection/10 border border-mild-infection/20">
+                  <div className="flex items-center mb-2">
+                    <Video className="w-4 h-4 text-mild-infection mr-2" />
+                    <h3 className="font-semibold text-sm">3. First Flight</h3>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Start with manual mode, test spray system, monitor live feed
+                  </p>
+                </div>
+                <div className="p-4 rounded-lg bg-severe-infection/10 border border-severe-infection/20">
+                  <div className="flex items-center mb-2">
+                    <AlertTriangle className="w-4 h-4 text-severe-infection mr-2" />
+                    <h3 className="font-semibold text-sm">4. Safety First</h3>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Always maintain line of sight, check weather conditions
+                  </p>
+                </div>
+              </div>
+            </_Card>
+
+            {/* Troubleshooting */}
+            <Card className="glass-card p-6">
+              <h2 className="text-xl font-poppins font-extrabold mb-4 text-green-700 drop-shadow">Quick Troubleshooting</h2>
+              <div className="space-y-4">
+                {troubleshootingSteps.map((item, index) => (
+                  <div key={index} className="flex items-start space-x-3 p-3 rounded-lg bg-muted/20">
+                    {item.icon}
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-sm mb-2">{item.issue}</h3>
+                      <ol className="text-xs text-muted-foreground space-y-1">
+                        {item.steps.map((step, stepIndex) => (
+                          <li key={stepIndex} className="flex items-start">
+                            <span className="mr-2">{stepIndex + 1}.</span>
+                            <span>{step}</span>
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </_Card>
+
+            {/* FAQ */}
+            <Card className="glass-card p-6">
+              <h2 className="text-xl font-poppins font-extrabold mb-4 text-green-700 drop-shadow">Frequently Asked Questions</h2>
+              <Accordion type="single" collapsible className="w-full">
+                {faqs.map((faq, index) => (
+                  <AccordionItem key={index} value={`item-${index}`}>
+                    <AccordionTrigger className="text-left">
+                      <div className="flex items-center space-x-2">
+                        <span>{faq.question}</span>
+                        <Badge variant="outline" className="ml-auto text-xs bg-green-600 text-white font-bold border-green-600">
+                          {faq.category}
+                        </Badge>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-sm text-muted-foreground whitespace-pre-line">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </_Card>
           </div>
 
           {/* Right Column (Support) */}
           <div className="space-y-6">
-            {/* Video Tutorials Card */}
-            <Card className="glass-card p-4">{/* ... Video tutorials content ... */}</Card>
+            {/* Video Tutorials */}
+            <Card className="glass-card p-4">
+              <h3 className="font-semibold mb-3 flex items-center">
+                <Video className="w-4 h-4 mr-2 text-mild-infection" />
+                Video Tutorials
+              </h3>
+              <div className="space-y-3">
+                <div className="p-3 rounded-lg bg-healthy/10 border border-healthy/20 hover-lift cursor-pointer">
+                  <div className="flex items-center space-x-2 mb-1">
+                    <div className="w-2 h-2 rounded-full bg-healthy"></div>
+                    <span className="text-sm font-medium">Basic Setup</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground">5:23 min</p>
+                </div>
+                <div className="p-3 rounded-lg bg-drone-info/10 border border-drone-info/20 hover-lift cursor-pointer">
+                  <div className="flex items-center space-x-2 mb-1">
+                    <div className="w-2 h-2 rounded-full bg-drone-info"></div>
+                    <span className="text-sm font-medium">Flight Controls</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground">8:45 min</p>
+                </div>
+                <div className="p-3 rounded-lg bg-mild-infection/10 border border-mild-infection/20 hover-lift cursor-pointer">
+                  <div className="flex items-center space-x-2 mb-1">
+                    <div className="w-2 h-2 rounded-full bg-mild-infection"></div>
+                    <span className="text-sm font-medium">Maintenance</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground">12:16 min</p>
+                </div>
+              </div>
+            </_Card>
 
-            {/* Contact Info Card */}
+            {/* Contact Info */}
             <Card className="glass-card p-4">
               <h3 className="font-semibold mb-3">Contact Support</h3>
               <div className="space-y-3 text-sm">
@@ -121,9 +230,9 @@ const Help = () => {
                   Available 24/7 for emergency support
                 </div>
               </div>
-            </Card>
+            </_Card>
 
-            {/* ++ NEW CHATBOT CARD GOES HERE ++ */}
+            {/* ++ THIS IS THE NEW EMBEDDED CHATBOT CARD ++ */}
             <Card className="glass-card overflow-hidden">
               <iframe
                 src="https://www.chatbase.co/chatbot-iframe/Se1rIovAh9j2GYm8wLD3g"
@@ -131,7 +240,7 @@ const Help = () => {
                 style={{ height: '100%', minHeight: '700px' }}
                 frameBorder="0"
               ></iframe>
-            </Card>
+            </_Card>
           </div>
         </div>
       </div>
