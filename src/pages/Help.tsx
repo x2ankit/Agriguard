@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react"; // Added useEffect
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,6 +13,24 @@ const Help = () => {
   const [language, setLanguage] = useState("en"); // default English
   const { toast } = useToast();
 
+  // This hook will load your Chatbase bot when the page loads
+  useEffect(() => {
+    const addChatbaseScript = () => {
+      if (document.getElementById("Se1rIovAh9j2GYm8wLD3g")) {
+        return;
+      }
+      
+      const script = document.createElement("script");
+      script.src = "https://www.chatbase.co/embed.min.js";
+      script.id = "Se1rIovAh9j2GYm8wLD3g";
+      script.defer = true;
+      
+      document.body.appendChild(script);
+    };
+
+    addChatbaseScript();
+  }, []);
+
   const handleSendMessage = () => {
     if (!chatMessage.trim()) return;
     
@@ -24,6 +42,7 @@ const Help = () => {
   };
 
   const faqs = [
+    // ... your faqs array remains unchanged
     {
       question: "How do I refill the pesticide tank?",
       answer: "1. Land the drone safely on level ground\n2. Turn off the drone completely\n3. Open the tank compartment using the release lever\n4. Use the provided funnel to add pesticide\n5. Close and secure the compartment\n6. Run a system check before next flight",
@@ -52,6 +71,7 @@ const Help = () => {
   ];
 
   const troubleshootingSteps = [
+    // ... your troubleshootingSteps array remains unchanged
     {
       issue: "Drone won't start",
       icon: <Settings className="w-5 h-5 text-severe-infection" />,
@@ -108,7 +128,7 @@ const Help = () => {
       </header>
 
       <div className="container mx-auto px-4 py-6">
-  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
           {/* Quick Help Cards */}
           <div className="lg:col-span-2 space-y-6">
             {/* Getting Started */}
@@ -117,7 +137,6 @@ const Help = () => {
                 <Book className="w-5 h-5 mr-2 text-drone-info" />
                 Getting Started Guide
               </h2>
-              
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 rounded-lg bg-healthy/10 border border-healthy/20">
                   <div className="flex items-center mb-2">
@@ -128,7 +147,6 @@ const Help = () => {
                     Charge battery, fill tank, perform pre-flight checks
                   </p>
                 </div>
-                
                 <div className="p-4 rounded-lg bg-drone-info/10 border border-drone-info/20">
                   <div className="flex items-center mb-2">
                     <Settings className="w-4 h-4 text-drone-info mr-2" />
@@ -138,7 +156,6 @@ const Help = () => {
                     Set spray patterns, calibrate sensors, connect GPS
                   </p>
                 </div>
-                
                 <div className="p-4 rounded-lg bg-mild-infection/10 border border-mild-infection/20">
                   <div className="flex items-center mb-2">
                     <Video className="w-4 h-4 text-mild-infection mr-2" />
@@ -148,7 +165,6 @@ const Help = () => {
                     Start with manual mode, test spray system, monitor live feed
                   </p>
                 </div>
-                
                 <div className="p-4 rounded-lg bg-severe-infection/10 border border-severe-infection/20">
                   <div className="flex items-center mb-2">
                     <AlertTriangle className="w-4 h-4 text-severe-infection mr-2" />
@@ -164,7 +180,6 @@ const Help = () => {
             {/* Troubleshooting */}
             <Card className="glass-card p-6">
               <h2 className="text-xl font-poppins font-extrabold mb-4 text-green-700 drop-shadow">Quick Troubleshooting</h2>
-              
               <div className="space-y-4">
                 {troubleshootingSteps.map((item, index) => (
                   <div key={index} className="flex items-start space-x-3 p-3 rounded-lg bg-muted/20">
@@ -188,7 +203,6 @@ const Help = () => {
             {/* FAQ */}
             <Card className="glass-card p-6">
               <h2 className="text-xl font-poppins font-extrabold mb-4 text-green-700 drop-shadow">Frequently Asked Questions</h2>
-              
               <Accordion type="single" collapsible className="w-full">
                 {faqs.map((faq, index) => (
                   <AccordionItem key={index} value={`item-${index}`}>
@@ -211,44 +225,9 @@ const Help = () => {
 
           {/* Chatbot & Support */}
           <div className="space-y-6">
-            {/* Live Chat */}
-            <Card className="glass-card p-6 w-full lg:w-[420px] min-h-[420px]" style={{ marginLeft: 0 }}>
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-semibold flex items-center text-green-700 text-lg">
-                  <MessageCircle className="w-5 h-5 mr-2 text-drone-info" />
-                  Support Chat
-                </h3>
-                <Badge variant="outline" className="status-pulse px-3 py-1 text-green-800 font-bold text-base bg-white border-green-600" style={{ minWidth: "80px" }}>
-                  <div className="w-2 h-2 rounded-full bg-healthy mr-1 inline-block align-middle"></div>
-                  <span className="align-middle">Online</span>
-                </Badge>
-              </div>
 
-              <div className="space-y-3 mb-4 h-72 overflow-y-auto bg-muted/10 rounded-lg p-3">
-                <div className="bg-drone-info/20 rounded-lg p-2 max-w-[80%]">
-                  <p className="text-base font-semibold text-gray-900">Hello! I'm here to help with your Agriguard system. What do you need assistance with?</p>
-                </div>
-                <div className="bg-card rounded-lg p-2 max-w-[80%] ml-auto">
-                  <p className="text-base font-bold text-green-700">How do I calibrate the spray system?</p>
-                </div>
-                <div className="bg-drone-info/20 rounded-lg p-2 max-w-[80%]">
-                  <p className="text-base font-semibold text-gray-900">Great question! Go to Settings → Calibration → Spray System. Follow the on-screen instructions to calibrate the nozzles.</p>
-                </div>
-              </div>
-
-              <div className="flex space-x-2">
-                <Input
-                  placeholder="Ask anything..."
-                  value={chatMessage}
-                  onChange={(e) => setChatMessage(e.target.value)}
-                  onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
-                  className="flex-1 text-gray-900 font-semibold bg-white border-green-600 focus:ring-green-600"
-                />
-                <Button size="sm" onClick={handleSendMessage} className="bg-green-600 text-white font-bold border-green-600 hover:bg-green-700">
-                  <Send className="w-4 h-4" />
-                </Button>
-              </div>
-            </Card>
+            {/* THE STATIC CHATBOX USED TO BE HERE. IT HAS BEEN REMOVED. */}
+            {/* The Chatbase script loaded by useEffect will now create a floating chat bubble. */}
 
             {/* Video Tutorials */}
             <Card className="glass-card p-4">
@@ -256,7 +235,6 @@ const Help = () => {
                 <Video className="w-4 h-4 mr-2 text-mild-infection" />
                 Video Tutorials
               </h3>
-              
               <div className="space-y-3">
                 <div className="p-3 rounded-lg bg-healthy/10 border border-healthy/20 hover-lift cursor-pointer">
                   <div className="flex items-center space-x-2 mb-1">
@@ -265,7 +243,6 @@ const Help = () => {
                   </div>
                   <p className="text-xs text-muted-foreground">5:23 min</p>
                 </div>
-                
                 <div className="p-3 rounded-lg bg-drone-info/10 border border-drone-info/20 hover-lift cursor-pointer">
                   <div className="flex items-center space-x-2 mb-1">
                     <div className="w-2 h-2 rounded-full bg-drone-info"></div>
@@ -273,7 +250,6 @@ const Help = () => {
                   </div>
                   <p className="text-xs text-muted-foreground">8:45 min</p>
                 </div>
-                
                 <div className="p-3 rounded-lg bg-mild-infection/10 border border-mild-infection/20 hover-lift cursor-pointer">
                   <div className="flex items-center space-x-2 mb-1">
                     <div className="w-2 h-2 rounded-full bg-mild-infection"></div>
@@ -287,7 +263,6 @@ const Help = () => {
             {/* Contact Info */}
             <Card className="glass-card p-4">
               <h3 className="font-semibold mb-3">Contact Support</h3>
-              
               <div className="space-y-3 text-sm">
                 <div className="flex items-center space-x-2">
                   <Phone className="w-4 h-4 text-drone-info" />
