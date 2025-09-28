@@ -16,11 +16,12 @@ import {
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-const Navigation = () => {
+// The component now accepts an 'actions' prop for extra buttons
+const Navigation = ({ actions }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [notifications] = useState(3); // Mock notification count
+  const [notifications] = useState(3);
 
   const navItems = [
     { icon: Home, label: "Dashboard", path: "/dashboard" },
@@ -45,7 +46,6 @@ const Navigation = () => {
         </h2>
         <p className="text-xs text-green-700 font-semibold">Smart Farming Dashboard</p>
       </div>
-
       <nav className="flex-1 p-4 space-y-2">
         {navItems.map((item) => (
           <Button
@@ -59,7 +59,6 @@ const Navigation = () => {
           </Button>
         ))}
       </nav>
-
       <div className="p-4 border-t border-border/50 space-y-2">
         <Button variant="ghost" className="w-full justify-start">
           <Settings className="w-4 h-4 mr-3" />
@@ -74,9 +73,8 @@ const Navigation = () => {
   );
 
   return (
-    // ++ CHANGED THIS CONTAINER TO SEPARATE LEFT AND RIGHT GROUPS ++
     <div className="flex w-full items-center">
-      {/* Group 1: Desktop Navigation Links (Stays on the left) */}
+      {/* Group 1: Desktop Navigation Links */}
       <div className="hidden md:flex items-center space-x-4">
         {navItems.map((item) => (
           <Button
@@ -92,8 +90,12 @@ const Navigation = () => {
         ))}
       </div>
 
-      {/* Group 2: Actions & Mobile Menu (Pushed to the right with ml-auto) */}
-      <div className="flex items-center space-x-2 ml-auto">
+      {/* Group 2: Actions & Mobile Menu (Pushed to the right) */}
+      <div className="flex items-center space-x-4 ml-auto">
+        
+        {/* We render the passed-in actions (like the language button) here */}
+        {actions}
+
         {/* User Actions */}
         <div className="flex items-center space-x-2">
           <Button variant="ghost" size="sm" className="relative">

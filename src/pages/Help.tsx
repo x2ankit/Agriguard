@@ -7,7 +7,7 @@ import { MessageCircle, Book, Video, Phone, Globe, Battery, Fuel, Settings, Aler
 import Navigation from "@/components/Navigation";
 
 const Help = () => {
-  const [language, setLanguage] = useState("en"); // default English
+  const [language, setLanguage] = useState("en");
 
   const faqs = [
     {
@@ -55,41 +55,40 @@ const Help = () => {
     }
   ];
 
+  // Define the language button here so we can pass it as a prop
+  const languageButton = (
+    <Button
+      variant={language === "en" ? "default" : "ghost"}
+      size="sm"
+      className="bg-green-600 text-white font-bold border-green-600 hover:bg-green-700 hidden md:flex"
+      onClick={() => setLanguage(language === "en" ? "hi" : "en")}
+    >
+      <Globe className="w-4 h-4 mr-2" />
+      {language === "en" ? "English" : "हिन्दी"}
+    </Button>
+  );
+
   return (
     <div className="min-h-screen bg-background">
-      {/* Navigation Bar */}
-      <div className="w-full border-b border-border/50 bg-card/50 backdrop-blur-sm">
+      {/* The ONE AND ONLY Navigation Bar */}
+      <div className="w-full border-b border-border/50 bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-2">
-          <Navigation />
+          {/* We pass the languageButton into the Navigation component */}
+          <Navigation actions={languageButton} />
         </div>
       </div>
-      {/* Header */}
-      <header className="border-b border-border/50 bg-card/50 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-poppins font-extrabold text-green-600 tracking-wide drop-shadow-lg">
-              Agriguard Help & Support
-            </h1>
-            <div className="flex items-center space-x-3">
-              <Button
-                variant={language === "en" ? "default" : "ghost"}
-                size="sm"
-                className="bg-green-600 text-white font-bold border-green-600 hover:bg-green-700"
-                onClick={() => setLanguage(language === "en" ? "hi" : "en")}
-              >
-                <Globe className="w-4 h-4 mr-2" />
-                {language === "en" ? "English" : "हिन्दी"}
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
+      
+      {/* THE EXTRA <header> SECTION HAS BEEN REMOVED */}
 
       <div className="container mx-auto px-4 py-6">
+        {/* The Page Title is now part of the main content */}
+        <h1 className="text-3xl font-bold mb-6">
+          Agriguard Help & Support
+        </h1>
+        
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
           {/* Left Column */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Getting Started */}
             <Card className="glass-card p-6">
               <h2 className="text-xl font-poppins font-extrabold mb-4 flex items-center text-green-700 drop-shadow">
                 <Book className="w-5 h-5 mr-2 text-drone-info" />
@@ -135,7 +134,6 @@ const Help = () => {
               </div>
             </Card>
 
-            {/* Troubleshooting */}
             <Card className="glass-card p-6">
               <h2 className="text-xl font-poppins font-extrabold mb-4 text-green-700 drop-shadow">Quick Troubleshooting</h2>
               <div className="space-y-4">
@@ -158,7 +156,6 @@ const Help = () => {
               </div>
             </Card>
 
-            {/* FAQ */}
             <Card className="glass-card p-6">
               <h2 className="text-xl font-poppins font-extrabold mb-4 text-green-700 drop-shadow">Frequently Asked Questions</h2>
               <Accordion type="single" collapsible className="w-full">
@@ -183,7 +180,6 @@ const Help = () => {
 
           {/* Right Column (Support) */}
           <div className="space-y-6">
-            {/* Video Tutorials */}
             <Card className="glass-card p-4">
               <h3 className="font-semibold mb-3 flex items-center">
                 <Video className="w-4 h-4 mr-2 text-mild-infection" />
@@ -214,7 +210,6 @@ const Help = () => {
               </div>
             </Card>
 
-            {/* Contact Info */}
             <Card className="glass-card p-4">
               <h3 className="font-semibold mb-3">Contact Support</h3>
               <div className="space-y-3 text-sm">
@@ -232,7 +227,6 @@ const Help = () => {
               </div>
             </Card>
 
-            {/* Embedded Chatbot Card */}
             <Card className="glass-card overflow-hidden">
               <iframe
                 src="https://www.chatbase.co/chatbot-iframe/Se1rIovAh9j2GYm8wLD3g"
@@ -246,6 +240,6 @@ const Help = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Help;
