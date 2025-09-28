@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { MessageCircle, Send, Book, Video, Phone, Globe, Battery, Fuel, Settings, AlertTriangle } from "lucide-react";
+import { MessageCircle, Book, Video, Phone, Globe, Battery, Fuel, Settings, AlertTriangle } from "lucide-react";
 import Navigation from "@/components/Navigation";
 
 const Help = () => {
@@ -133,7 +133,7 @@ const Help = () => {
                   </p>
                 </div>
               </div>
-            </_Card>
+            </Card>
 
             {/* Troubleshooting */}
             <Card className="glass-card p-6">
@@ -156,7 +156,7 @@ const Help = () => {
                   </div>
                 ))}
               </div>
-            </_Card>
+            </Card>
 
             {/* FAQ */}
             <Card className="glass-card p-6">
@@ -178,7 +178,7 @@ const Help = () => {
                   </AccordionItem>
                 ))}
               </Accordion>
-            </_Card>
+            </Card>
           </div>
 
           {/* Right Column (Support) */}
@@ -212,7 +212,7 @@ const Help = () => {
                   <p className="text-xs text-muted-foreground">12:16 min</p>
                 </div>
               </div>
-            </_Card>
+            </Card>
 
             {/* Contact Info */}
             <Card className="glass-card p-4">
@@ -230,9 +230,9 @@ const Help = () => {
                   Available 24/7 for emergency support
                 </div>
               </div>
-            </_Card>
+            </Card>
 
-            {/* ++ THIS IS THE NEW EMBEDDED CHATBOT CARD ++ */}
+            {/* Embedded Chatbot Card */}
             <Card className="glass-card overflow-hidden">
               <iframe
                 src="https://www.chatbase.co/chatbot-iframe/Se1rIovAh9j2GYm8wLD3g"
@@ -240,7 +240,7 @@ const Help = () => {
                 style={{ height: '100%', minHeight: '700px' }}
                 frameBorder="0"
               ></iframe>
-            </_Card>
+            </Card>
           </div>
         </div>
       </div>
