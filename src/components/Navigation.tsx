@@ -32,7 +32,7 @@ const Navigation = () => {
   const handleLogout = () => {
     toast({
       title: "Logged out successfully",
-      description: "Thank you for using AgriDrone Control",
+      description: "Thank you for using Agriguard",
     });
     navigate("/");
   };
@@ -74,8 +74,9 @@ const Navigation = () => {
   );
 
   return (
-    <div className="flex items-center space-x-4">
-      {/* Desktop Navigation */}
+    // ++ CHANGED THIS CONTAINER TO SEPARATE LEFT AND RIGHT GROUPS ++
+    <div className="flex w-full items-center">
+      {/* Group 1: Desktop Navigation Links (Stays on the left) */}
       <div className="hidden md:flex items-center space-x-4">
         {navItems.map((item) => (
           <Button
@@ -91,32 +92,35 @@ const Navigation = () => {
         ))}
       </div>
 
-      {/* User Actions */}
-      <div className="flex items-center space-x-2">
-        <Button variant="ghost" size="sm" className="relative">
-          <Bell className="w-4 h-4" />
-          {notifications > 0 && (
-            <Badge className="absolute -top-1 -right-1 w-5 h-5 p-0 flex items-center justify-center text-xs bg-severe-infection">
-              {notifications}
-            </Badge>
-          )}
-        </Button>
-        <Button variant="ghost" size="sm">
-          <User className="w-4 h-4" />
-        </Button>
-      </div>
-
-      {/* Mobile Navigation */}
-      <Sheet>
-        <SheetTrigger asChild>
-          <Button variant="ghost" size="sm" className="md:hidden">
-            <Menu className="w-4 h-4" />
+      {/* Group 2: Actions & Mobile Menu (Pushed to the right with ml-auto) */}
+      <div className="flex items-center space-x-2 ml-auto">
+        {/* User Actions */}
+        <div className="flex items-center space-x-2">
+          <Button variant="ghost" size="sm" className="relative">
+            <Bell className="w-4 h-4" />
+            {notifications > 0 && (
+              <Badge className="absolute -top-1 -right-1 w-5 h-5 p-0 flex items-center justify-center text-xs bg-red-600">
+                {notifications}
+              </Badge>
+            )}
           </Button>
-        </SheetTrigger>
-        <SheetContent side="left" className="w-64 p-0">
-          <NavContent />
-        </SheetContent>
-      </Sheet>
+          <Button variant="ghost" size="sm">
+            <User className="w-4 h-4" />
+          </Button>
+        </div>
+
+        {/* Mobile Navigation */}
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="ghost" size="sm" className="md:hidden">
+              <Menu className="w-4 h-4" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="w-64 p-0">
+            <NavContent />
+          </SheetContent>
+        </Sheet>
+      </div>
     </div>
   );
 };
