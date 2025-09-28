@@ -266,7 +266,7 @@ const Help = () => {
               <div className="space-y-3 text-sm">
                 <div className="flex items-center space-x-2">
                   <Phone className="w-4 h-4 text-drone-info" />
-                  <span>+91 98765 43210</span>
+                  <span>+99 99xx88xx99</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <MessageCircle className="w-4 h-4 text-healthy" />
