@@ -30,6 +30,8 @@ import {
   Cloud,
   CloudRain,
 } from "lucide-react";
+// FIX: Import the logo image directly
+import logo from "../../favicon/apple-touch-icon.png";
 
 // Consistent navigation header
 const DashboardHeaderNav = ({ user }: { user: User | null }) => {
@@ -115,11 +117,12 @@ const Dashboard = () => {
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-                <img src="/apple-touch-icon.png" alt="Agriguard Logo" className="w-9 h-9" />
-                 <div>
-                    <h1 className="text-lg font-poppins font-bold text-gray-800">Dashboard</h1>
-                    <p className="text-xs text-gray-500">Smart Farming Control Center</p>
-                 </div>
+              {/* FIX: Use the imported logo variable in the src attribute */}
+              <img src={logo} alt="Agriguard Logo" className="w-9 h-9" />
+               <div>
+                  <h1 className="text-lg font-poppins font-bold text-gray-800">Dashboard</h1>
+                  <p className="text-xs text-gray-500">Smart Farming Control Center</p>
+               </div>
             </div>
             <DashboardHeaderNav user={user} />
           </div>
@@ -152,20 +155,19 @@ const Dashboard = () => {
               </div>
                <div className="flex items-center justify-between mb-4"><div className="flex items-center space-x-1.5"><Settings2 className="w-4 h-4 text-blue-500" /><span className="text-xs font-medium text-gray-600">Mode</span></div><Badge className="font-mono bg-blue-100 text-blue-800">{drone.mode}</Badge></div>
                <div className="grid grid-cols-2 gap-3">
-                    {/* FIXED: Changed button text */}
-                    <Button size="sm" className="h-10 bg-green-600 hover:bg-green-700 text-white font-bold"><Plane className="w-4 h-4 mr-2" />Start Auto Spray</Button>
-                    <Button size="sm" variant="outline" className="h-10 bg-gray-200 text-gray-800 font-bold hover:bg-gray-300 border-gray-300" onClick={() => navigate('/live')}>
-                        <Map className="w-4 h-4 mr-2" />Field Map
-                    </Button>
+                   <Button size="sm" className="h-10 bg-green-600 hover:bg-green-700 text-white font-bold"><Plane className="w-4 h-4 mr-2" />Start Auto Spray</Button>
+                   <Button size="sm" variant="outline" className="h-10 bg-gray-200 text-gray-800 font-bold hover:bg-gray-300 border-gray-300" onClick={() => navigate('/live')}>
+                       <Map className="w-4 h-4 mr-2" />Field Map
+                   </Button>
                </div>
             </Card>
             <Card className="p-4 bg-white shadow-lg border">
-                <h3 className="text-base font-poppins font-semibold mb-3 text-gray-800">Recent Activity</h3>
-                <div className="space-y-2 text-xs">
-                    <div className="flex items-center space-x-3 p-2 rounded-md bg-green-50/50"><div className="w-1.5 h-1.5 rounded-full bg-green-500"></div><div><p className="font-medium text-gray-800">Sector A-7 treatment completed</p><p className="text-gray-500">2 minutes ago</p></div></div>
-                    <div className="flex items-center space-x-3 p-2 rounded-md bg-yellow-50/50"><div className="w-1.5 h-1.5 rounded-full bg-yellow-500"></div><div><p className="font-medium text-gray-800">Mild infection detected in B-3</p><p className="text-gray-500">15 minutes ago</p></div></div>
-                    <div className="flex items-center space-x-3 p-2 rounded-md bg-blue-50/50"><div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div><div><p className="font-medium text-gray-800">Battery charged to 85%</p><p className="text-gray-500">1 hour ago</p></div></div>
-                </div>
+               <h3 className="text-base font-poppins font-semibold mb-3 text-gray-800">Recent Activity</h3>
+               <div className="space-y-2 text-xs">
+                   <div className="flex items-center space-x-3 p-2 rounded-md bg-green-50/50"><div className="w-1.5 h-1.5 rounded-full bg-green-500"></div><div><p className="font-medium text-gray-800">Sector A-7 treatment completed</p><p className="text-gray-500">2 minutes ago</p></div></div>
+                   <div className="flex items-center space-x-3 p-2 rounded-md bg-yellow-50/50"><div className="w-1.5 h-1.5 rounded-full bg-yellow-500"></div><div><p className="font-medium text-gray-800">Mild infection detected in B-3</p><p className="text-gray-500">15 minutes ago</p></div></div>
+                   <div className="flex items-center space-x-3 p-2 rounded-md bg-blue-50/50"><div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div><div><p className="font-medium text-gray-800">Battery charged to 85%</p><p className="text-gray-500">1 hour ago</p></div></div>
+               </div>
             </Card>
           </div>
 
@@ -201,24 +203,23 @@ const Dashboard = () => {
 
 
           <div className="flex flex-col gap-4">
-              <Card className="p-4 bg-white shadow-lg border">
-                  <h3 className="text-base font-poppins font-semibold mb-3 text-gray-800">Crop Type</h3>
-                  {/* FIXED: Styled the select trigger for light theme */}
-                  <Select onValueChange={setSelectedCrop} defaultValue={selectedCrop}>
-                      <SelectTrigger className="w-full bg-white border-gray-300">
-                          <SelectValue placeholder="Select Crop" />
-                      </SelectTrigger>
-                      <SelectContent>
-                          <SelectItem value="wheat">Wheat</SelectItem>
-                          <SelectItem value="corn">Corn</SelectItem>
-                          <SelectItem value="soybean">Soybean</SelectItem>
-                          <SelectItem value="rice">Rice</SelectItem>
-                      </SelectContent>
-                  </Select>
-              </Card>
-              <Card className="p-4 bg-white shadow-lg border grow flex flex-col">
-                   <h3 className="text-base font-poppins font-semibold mb-3 text-gray-800">Weather Forecast</h3>
-                   <div className="flex-grow flex flex-col justify-around">
+               <Card className="p-4 bg-white shadow-lg border">
+                   <h3 className="text-base font-poppins font-semibold mb-3 text-gray-800">Crop Type</h3>
+                   <Select onValueChange={setSelectedCrop} defaultValue={selectedCrop}>
+                       <SelectTrigger className="w-full bg-white border-gray-300">
+                           <SelectValue placeholder="Select Crop" />
+                       </SelectTrigger>
+                       <SelectContent>
+                           <SelectItem value="wheat">Wheat</SelectItem>
+                           <SelectItem value="corn">Corn</SelectItem>
+                           <SelectItem value="soybean">Soybean</SelectItem>
+                           <SelectItem value="rice">Rice</SelectItem>
+                       </SelectContent>
+                   </Select>
+               </Card>
+               <Card className="p-4 bg-white shadow-lg border grow flex flex-col">
+                    <h3 className="text-base font-poppins font-semibold mb-3 text-gray-800">Weather Forecast</h3>
+                    <div className="flex-grow flex flex-col justify-around">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-4">
                                 <Sun className="w-12 h-12 text-yellow-500" />
@@ -238,7 +239,7 @@ const Dashboard = () => {
                             <div><p className="font-semibold">Wed</p><Sun className="w-6 h-6 mx-auto my-1 text-yellow-500"/><p>33°/24°</p></div>
                         </div>
                    </div>
-              </Card>
+               </Card>
           </div>
         </div>
       </div>
@@ -247,4 +248,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
