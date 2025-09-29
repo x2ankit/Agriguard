@@ -1,252 +1,155 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Badge } from "@/components/ui/badge";
-import { CalendarIcon, TrendingUp, TrendingDown, BarChart3, Leaf, Droplets, Clock } from "lucide-react";
+import { CalendarIcon, TrendingUp, TrendingDown, BarChart3, Leaf, Droplets, Clock, User, LayoutDashboard, HelpCircle } from "lucide-react";
 import { format } from "date-fns";
-import Navigation from "@/components/Navigation";
+import { useNavigate } from "react-router-dom";
+
+// Define a type for the user object for clarity
+type User = {
+  displayName: string;
+  email: string;
+  photoURL?: string;
+};
+
+// Consistent navigation header
+const AnalyticsHeaderNav = ({ user }: { user: User | null }) => {
+    const navigate = useNavigate();
+    return (
+        <div className="flex items-center space-x-2">
+            <Button variant="ghost" size="sm" className="text-gray-600 hover:bg-gray-200" onClick={() => navigate('/dashboard')}>
+                <LayoutDashboard className="w-4 h-4 mr-2" />
+                Dashboard
+            </Button>
+            <Button variant="ghost" size="sm" className="text-gray-600 hover:bg-gray-200" onClick={() => navigate('/live')}>
+                Live Control
+            </Button>
+            <Button variant="secondary" size="sm" className="bg-gray-200 text-gray-800 font-bold hover:bg-gray-300">
+                <BarChart3 className="w-4 h-4 mr-2" />
+                Analytics
+            </Button>
+            <Button variant="ghost" size="sm" className="text-gray-600 hover:bg-gray-200" onClick={() => navigate('/help')}>
+                <HelpCircle className="w-4 h-4 mr-2" />
+                Help
+            </Button>
+            <div className="flex items-center space-x-2 pl-4">
+                 <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+                    {user?.photoURL ? (
+                        <img src={user.photoURL} alt="Profile" className="w-full h-full rounded-full" />
+                    ) : (
+                        <User className="w-4 h-4 text-gray-600"/>
+                    )}
+                 </div>
+                 <span className="text-sm font-medium text-gray-800">{user?.displayName || 'Ankit Tripathy'}</span>
+            </div>
+             {/* REMOVED the notification icon block */}
+        </div>
+    );
+};
 
 const Analytics = () => {
-  const [date, setDate] = useState<Date | undefined>(new Date());
+  // FIXED: Changed from useState to a constant, as it's no longer editable
+  const date = new Date();
+  const [user, setUser] = useState<User | null>(null);
 
-  // Mock analytics data
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
   const healthTrend = [
-    { month: "Jan", healthy: 75, mild: 20, severe: 5 },
-    { month: "Feb", healthy: 78, mild: 18, severe: 4 },
-    { month: "Mar", healthy: 72, mild: 23, severe: 5 },
-    { month: "Apr", healthy: 80, mild: 15, severe: 5 },
-    { month: "May", healthy: 85, mild: 12, severe: 3 },
-    { month: "Jun", healthy: 82, mild: 16, severe: 2 },
+    { month: "Jan", healthy: 75, mild: 20, severe: 5 }, { month: "Feb", healthy: 78, mild: 18, severe: 4 }, { month: "Mar", healthy: 72, mild: 23, severe: 5 }, { month: "Apr", healthy: 80, mild: 15, severe: 5 }, { month: "May", healthy: 85, mild: 12, severe: 3 }, { month: "Jun", healthy: 82, mild: 16, severe: 2 },
   ];
-
   const sprayHistory = [
-    { date: "2024-01-15", area: 0.15, pesticide: 8.5, savings: 35 },
-    { date: "2024-01-14", area: 0.23, pesticide: 5.8, savings: 42 },
-    { date: "2024-01-13", area: 0.19, pesticide: 11.2, savings: 28 },
-    { date: "2024-01-12", area: 0.84, pesticide: 4.1, savings: 48 },
+    { date: "2025-09-15", area: 0.15, pesticide: 8.5, savings: 35 }, { date: "2025-09-14", area: 0.23, pesticide: 5.8, savings: 42 }, { date: "2025-09-13", area: 0.19, pesticide: 11.2, savings: 28 }, { date: "2025-09-12", area: 0.84, pesticide: 4.1, savings: 48 },
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border/50 bg-card/50 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4">
+    <div className="min-h-screen bg-gray-100 text-gray-900">
+      <header className="border-b border-gray-200 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <div className="flex items-center justify-between">
-            <h1 className="text-xl font-poppins font-bold gradient-text-drone">
+            <h1 className="text-lg font-poppins font-bold text-gray-800">
               Agriguard Analytics & Reports
             </h1>
             <div className="flex items-center space-x-3">
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button variant="outline" size="sm" className="bg-drone-info text-white font-bold border-drone-info hover:bg-drone-info/80">
-                    <CalendarIcon className="w-4 h-4 mr-2" />
-                    {date ? format(date, "MMM dd, yyyy") : "Pick a date"}
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="end">
-                  <Calendar
-                    mode="single"
-                    selected={date}
-                    onSelect={setDate}
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
-              <Navigation />
+              {/* FIXED: Removed Popover to make the date static */}
+              <Button variant="outline" size="sm" className="bg-blue-600 text-white font-bold border-blue-600 cursor-default">
+                <CalendarIcon className="w-4 h-4 mr-2" />
+                {format(date, "MMM dd, yyyy")}
+              </Button>
+              <AnalyticsHeaderNav user={user} />
             </div>
           </div>
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-6">
-        {/* Key Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card className="glass-card hover-lift p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Total Area Treated</p>
-                <p className="text-2xl font-poppins font-bold text-healthy">0.3 ha</p>
-                <div className="flex items-center mt-1">
-                  <TrendingUp className="w-3 h-3 text-healthy mr-1" />
-                  <span className="text-xs text-healthy">+12% vs last month</span>
-                </div>
-              </div>
-              <div className="w-12 h-12 rounded-full bg-healthy/20 flex items-center justify-center">
-                <Leaf className="w-6 h-6 text-healthy" />
-              </div>
-            </div>
-          </Card>
-
-          <Card className="glass-card hover-lift p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Pesticide Saved</p>
-                <p className="text-2xl font-poppins font-bold text-drone-info">38.5%</p>
-                <div className="flex items-center mt-1">
-                  <TrendingUp className="w-3 h-3 text-drone-info mr-1" />
-                  <span className="text-xs text-drone-info">+5% efficiency</span>
-                </div>
-              </div>
-              <div className="w-12 h-12 rounded-full bg-drone-info/20 flex items-center justify-center">
-                <Droplets className="w-6 h-6 text-drone-info" />
-              </div>
-            </div>
-          </Card>
-
-          <Card className="glass-card hover-lift p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Flight Hours</p>
-                <p className="text-2xl font-poppins font-bold text-mild-infection">0.32 hrs</p>
-                <div className="flex items-center mt-1">
-                  <TrendingDown className="w-3 h-3 text-severe-infection mr-1" />
-                  <span className="text-xs text-severe-infection">-3% downtime</span>
-                </div>
-              </div>
-              <div className="w-12 h-12 rounded-full bg-mild-infection/20 flex items-center justify-center">
-                <Clock className="w-6 h-6 text-mild-infection" />
-              </div>
-            </div>
-          </Card>
-
-          <Card className="glass-card hover-lift p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Avg Health Score</p>
-                <p className="text-2xl font-poppins font-bold text-healthy">82.5%</p>
-                <div className="flex items-center mt-1">
-                  <TrendingUp className="w-3 h-3 text-healthy mr-1" />
-                  <span className="text-xs text-healthy">+8% improved</span>
-                </div>
-              </div>
-              <div className="w-12 h-12 rounded-full bg-healthy/20 flex items-center justify-center">
-                <BarChart3 className="w-6 h-6 text-healthy" />
-              </div>
-            </div>
-          </Card>
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+          <Card className="p-4 bg-white shadow-lg border"><div className="flex items-center justify-between"><div><p className="text-sm text-gray-500">Total Area Treated</p><p className="text-2xl font-poppins font-bold text-green-600">0.3 ha</p><div className="flex items-center mt-1"><TrendingUp className="w-3 h-3 text-green-600 mr-1" /><span className="text-xs text-green-600">+12% vs last month</span></div></div><div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center"><Leaf className="w-5 h-5 text-green-600" /></div></div></Card>
+          <Card className="p-4 bg-white shadow-lg border"><div className="flex items-center justify-between"><div><p className="text-sm text-gray-500">Pesticide Saved</p><p className="text-2xl font-poppins font-bold text-blue-600">38.5%</p><div className="flex items-center mt-1"><TrendingUp className="w-3 h-3 text-blue-600 mr-1" /><span className="text-xs text-blue-600">+5% efficiency</span></div></div><div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center"><Droplets className="w-5 h-5 text-blue-600" /></div></div></Card>
+          <Card className="p-4 bg-white shadow-lg border"><div className="flex items-center justify-between"><div><p className="text-sm text-gray-500">Flight Hours</p><p className="text-2xl font-poppins font-bold text-yellow-600">0.32 hrs</p><div className="flex items-center mt-1"><TrendingDown className="w-3 h-3 text-red-600 mr-1" /><span className="text-xs text-red-600">-3% downtime</span></div></div><div className="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center"><Clock className="w-5 h-5 text-yellow-600" /></div></div></Card>
+          <Card className="p-4 bg-white shadow-lg border"><div className="flex items-center justify-between"><div><p className="text-sm text-gray-500">Avg Health Score</p><p className="text-2xl font-poppins font-bold text-green-600">82.5%</p><div className="flex items-center mt-1"><TrendingUp className="w-3 h-3 text-green-600 mr-1" /><span className="text-xs text-green-600">+8% improved</span></div></div><div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center"><BarChart3 className="w-5 h-5 text-green-600" /></div></div></Card>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          {/* Crop Health Trend */}
-          <Card className="glass-card p-6">
-            <h3 className="text-lg font-poppins font-semibold mb-4">Crop Health Over Time</h3>
-            <div className="space-y-4">
-              {healthTrend.map((data, index) => (
-                <div key={data.month} className="space-y-2">
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="font-medium">{data.month}</span>
-                    <div className="flex space-x-3 text-xs">
-                      <span className="text-healthy">{data.healthy}%</span>
-                      <span className="text-mild-infection">{data.mild}%</span>
-                      <span className="text-severe-infection">{data.severe}%</span>
-                    </div>
-                  </div>
-                  <div className="flex rounded-full overflow-hidden h-3 bg-muted">
-                    <div 
-                      className="bg-healthy transition-all duration-1000"
-                      style={{ width: `${data.healthy}%`, animationDelay: `${index * 0.1}s` }}
-                    ></div>
-                    <div 
-                      className="bg-mild-infection transition-all duration-1000"
-                      style={{ width: `${data.mild}%`, animationDelay: `${index * 0.1}s` }}
-                    ></div>
-                    <div 
-                      className="bg-severe-infection transition-all duration-1000"
-                      style={{ width: `${data.severe}%`, animationDelay: `${index * 0.1}s` }}
-                    ></div>
-                  </div>
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
+          <Card className="p-4 bg-white shadow-lg border lg:col-span-2">
+            <h3 className="text-base font-poppins font-semibold mb-3">Crop Health Over Time</h3>
+            <div className="space-y-3">
+              {healthTrend.map((data) => (
+                <div key={data.month} className="space-y-1.5">
+                  <div className="flex items-center justify-between text-xs"><span className="font-medium text-gray-700">{data.month}</span><div className="flex space-x-3"><span className="text-green-600">{data.healthy}%</span><span className="text-yellow-600">{data.mild}%</span><span className="text-red-600">{data.severe}%</span></div></div>
+                  <div className="flex rounded-full overflow-hidden h-2.5 bg-gray-200"><div className="bg-green-500" style={{ width: `${data.healthy}%` }}></div><div className="bg-yellow-500" style={{ width: `${data.mild}%` }}></div><div className="bg-red-500" style={{ width: `${data.severe}%` }}></div></div>
                 </div>
               ))}
             </div>
-            
-            <div className="flex items-center justify-center space-x-6 mt-6 text-sm">
-              <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 rounded-full bg-healthy"></div>
-                <span>Healthy</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 rounded-full bg-mild-infection"></div>
-                <span>Mild</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 rounded-full bg-severe-infection"></div>
-                <span>Severe</span>
-              </div>
-            </div>
+            <div className="flex items-center justify-center space-x-4 mt-4 text-xs text-gray-600"><div className="flex items-center space-x-1.5"><div className="w-2.5 h-2.5 rounded-full bg-green-500"></div><span>Healthy</span></div><div className="flex items-center space-x-1.5"><div className="w-2.5 h-2.5 rounded-full bg-yellow-500"></div><span>Mild</span></div><div className="flex items-center space-x-1.5"><div className="w-2.5 h-2.5 rounded-full bg-red-500"></div><span>Severe</span></div></div>
           </Card>
 
-          {/* Pesticide Savings */}
-          <Card className="glass-card p-6">
-            <h3 className="text-lg font-poppins font-semibold mb-4">Pesticide Savings Progress</h3>
-            
-            <div className="text-center mb-6">
-              <div className="text-4xl font-poppins font-bold gradient-text-drone mb-2">42%</div>
-              <p className="text-sm text-muted-foreground">Average savings this month</p>
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-sm">Target Savings</span>
-                <Badge variant="outline" className="bg-drone-info text-white font-bold border-drone-info">35%</Badge>
+          <div className="flex flex-col gap-4 lg:col-span-1">
+            <Card className="p-4 bg-white shadow-lg border">
+              <h3 className="text-base font-poppins font-semibold mb-3">Pesticide Savings</h3>
+              <div className="text-center mb-4"><div className="text-3xl font-poppins font-bold text-blue-600 mb-1">38.5%</div><p className="text-xs text-gray-500">Average savings this month</p></div>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between text-sm"><span className="text-gray-600">Target</span><Badge variant="outline" className="bg-blue-100 text-blue-700 border-blue-300">35%</Badge></div>
+                <div className="w-full bg-gray-200 rounded-full h-3.5 shadow-inner"><div className="h-3.5 rounded-full bg-blue-500" style={{ width: "38.5%" }}></div></div>
               </div>
-              <div className="w-full bg-muted rounded-full h-4 shadow-inner flex items-center">
-                <div 
-                  className="h-4 rounded-full bg-gradient-to-r from-drone-info via-healthy to-mild-infection transition-all duration-1000 shadow-lg border border-white/10"
-                  style={{ width: "42%" }}
-                ></div>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-4 mt-6">
-                <div className="text-center p-3 rounded-lg bg-healthy/10">
-                  <div className="text-lg font-bold text-healthy">₹28,450</div>
-                  <div className="text-xs text-muted-foreground">Money Saved</div>
+            </Card>
+            <Card className="p-4 bg-white shadow-lg border">
+                <h3 className="text-base font-poppins font-semibold mb-3">Money Saved</h3>
+                <div className="text-center p-2 rounded-lg bg-green-50">
+                    <div className="text-xl font-bold text-green-700">₹28,450</div>
+                    <div className="text-xs text-gray-500 mt-1">Total Estimated Savings</div>
                 </div>
-                <div className="text-center p-3 rounded-lg bg-drone-info/10">
-                  <div className="text-lg font-bold text-drone-info">5.6L</div>
-                  <div className="text-xs text-muted-foreground">Pesticide Saved</div>
+            </Card>
+          </div>
+          
+          <Card className="p-4 bg-white shadow-lg border lg:col-span-2">
+            <h3 className="text-base font-poppins font-semibold mb-3">Recent Spray History</h3>
+            <div className="space-y-3">
+              {sprayHistory.map((record) => (
+                <div key={record.date} className="p-2.5 rounded-lg border bg-gray-50/50">
+                    <div className="flex justify-between items-center mb-2">
+                        <span className="text-xs font-medium font-mono text-gray-800">{record.date}</span>
+                        <Badge variant="outline" className="text-green-700 border-green-300 bg-green-50 text-xs px-1.5 py-0.5">Completed</Badge>
+                    </div>
+                    <div className="grid grid-cols-3 gap-2 text-center text-xs">
+                        <div><p className="text-gray-500">Area</p><p className="font-semibold text-green-600">{record.area} ha</p></div>
+                        <div><p className="text-gray-500">Pesticide</p><p className="font-semibold text-blue-600">{record.pesticide}L</p></div>
+                        <div><p className="text-gray-500">Savings</p><p className="font-semibold text-yellow-600">{record.savings}%</p></div>
+                    </div>
                 </div>
-              </div>
+              ))}
             </div>
           </Card>
         </div>
-
-        {/* Spray History */}
-        <Card className="glass-card p-6">
-          <h3 className="text-lg font-poppins font-semibold mb-4">Recent Spray History</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-border/50">
-                  <th className="text-left py-2 font-medium text-sm">Date</th>
-                  <th className="text-left py-2 font-medium text-sm">Area Covered</th>
-                  <th className="text-left py-2 font-medium text-sm">Pesticide Used</th>
-                  <th className="text-left py-2 font-medium text-sm">Savings</th>
-                  <th className="text-left py-2 font-medium text-sm">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {sprayHistory.map((record, index) => (
-                  <tr key={record.date} className="border-b border-border/20 hover:bg-muted/20">
-                    <td className="py-3 text-sm font-mono">{record.date}</td>
-                    <td className="py-3 text-sm font-mono text-healthy">{record.area} ha</td>
-                    <td className="py-3 text-sm font-mono text-drone-info">{record.pesticide}L</td>
-                    <td className="py-3 text-sm font-mono text-mild-infection">{record.savings}%</td>
-                    <td className="py-3">
-                      <Badge variant="outline" className="text-healthy border-healthy">
-                        Completed
-                      </Badge>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Card>
       </div>
     </div>
   );
 };
 
 export default Analytics;
+
